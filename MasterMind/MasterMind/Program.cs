@@ -12,7 +12,7 @@ namespace MasterMind
         {
             Console.WriteLine("************** Let's play Master-Mind **************\n");
 
-            //string name = GetPlayerName();
+            
 
             do
             {
@@ -25,7 +25,7 @@ namespace MasterMind
 
         private static void PlayGame()
         {
-            int numberCount = 4;// GetRandomNumberCount();
+            int numberCount = 4;
            
             int[] PCArray = GetRandomNumbers(numberCount);
             Console.WriteLine("A {0}-digit number has been chosen. Each possible digit may be the number 1 to 6.\n", numberCount);
@@ -53,24 +53,7 @@ namespace MasterMind
             Console.WriteLine();
         }
 
-        //private static string GetPlayerName()
-        //{
-        //    Console.Write("Please enter your name: ");
-        //    string name = Console.ReadLine();
-        //    Console.WriteLine("Welcome, {0}. Have fun!!\n", name);
-        //    return name;
-        //}
-
-        //public static int GetRandomNumberCount()
-        //{
-        //    int number;
-
-        //    Console.Write("How many numbers would you like to use in playing the game (4-10)? ");
-        //    while (!int.TryParse(Console.ReadLine(), out number) || number < 4 || number > 10)
-        //        Console.WriteLine("You must pick a number between 4 and 10. Choose again.");
-
-        //    return number;
-        //}
+       
         
 
         public static int[] GetRandomNumbers(int PCSize)
@@ -82,12 +65,12 @@ namespace MasterMind
            
             for (int i = 0; i < PCSize; i++)
             {
-                eachNumber = rnd.Next(1, 6);
+                eachNumber = rnd.Next(1, 7);
                 randomNumber[i] = eachNumber;
                 temp = temp + eachNumber;               
             }
 
-            Console.Write("PC number: "  + temp); //to display the randomly generated Number
+            Console.Write("PC number: "  + temp); 
             Console.WriteLine();
             return randomNumber;
         }
@@ -98,7 +81,16 @@ namespace MasterMind
             int[] userGuess = new int[userSize];
             
             GetNum:
-            number = Convert.ToInt32(Console.ReadLine());
+            string tempinput = Console.ReadLine();
+            if (tempinput.All(char.IsDigit))
+            {
+                number = Convert.ToInt32(tempinput);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a 4 digit number.");
+                goto GetNum;
+            }
             string temp = Convert.ToString(number);
             if(temp.Length > 4)
             {
@@ -133,7 +125,7 @@ namespace MasterMind
                     hits++;
             }
 
-            Console.WriteLine("Result: {0} , -{1} ", hits, PCArray.Length - hits);
+            Console.WriteLine("Result: +{0} , -{1} ", hits, PCArray.Length - hits);
             return hits;
         }
     }
